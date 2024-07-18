@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import "./App.css"
 
 function App() {
-  let [todos, setTodos] = useState([{ task: "sampleTask", id: uuidv4() }]);
+  let [todos, setTodos] = useState([{ task: "sampleTask", id: uuidv4(), isDone: false }]);
   let [newTodo, setnewTodo] = useState("");
   function AddNewTask() {
     setTodos((prev) => {
@@ -41,6 +42,15 @@ function App() {
         )
       }
 
+  function markAsDone(id) {
+   setTodos((prevTodo) => 
+    prevTodo.map((todo) => 
+    todo.id === id ? {...todo, isDone: !todo.isDone} :todo
+  
+  ))
+};
+
+
   return (
     <>
       <div>
@@ -59,12 +69,13 @@ function App() {
       <ul>
         {todos.map((todo) => {
           return (
-            <li key={todo.id}>
-              {" "}
-              {todo.task} &nbsp;{" "}
-              <button onClick={() => deleteTask(todo.id)}> Delete </button>{" "}
-              &nbsp;{" "}
-              <button onClick={() => upperCase(todo.id)}> UpperCase </button>{" "}
+            <li key={todo.id} className={todo.isDone ? 'Done': ''}>
+              {todo.task} &nbsp;
+              <button onClick={() => deleteTask(todo.id)}> Delete </button>
+              &nbsp;
+              <button onClick={() => upperCase(todo.id)}> UpperCase </button>
+              &nbsp;
+             <button onClick= {() => markAsDone(todo.id)}> Done </button>
             </li>
           );
         })}

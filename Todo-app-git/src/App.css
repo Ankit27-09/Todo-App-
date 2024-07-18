@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+.Done {
+  text-decoration: line-through;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
